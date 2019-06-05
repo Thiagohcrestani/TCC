@@ -1,0 +1,15 @@
+{
+ "name":"Baby Control",
+ "require":{
+  "symfony/http-foundation": "^3.4",
+  "symfony/routing":"^3.4",
+  "symfony/config": "^3.4"
+ },
+ "autoload":{
+	"psr-0":{
+		"":"./"
+	
+	}
+ 
+ }
+ }
