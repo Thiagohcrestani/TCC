@@ -46,10 +46,12 @@ include('seguranca.php');
 			<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12"><font color="white"><b>Pesquisar </b>:</font>
 			
 			<input type="text" class="form-control" name="nome" size="28" id="busca" onkeyup="buscarNoticias(this.value)"></div>
+			
 			<br>
 			<br>
 			<br>
 		</div>
+		<button type="button" class="btn btn-primary btn-sm" onclick="buscarNoticias(this.value)">Listar Todos</button>
 		<div id="conteudo"></div>
 		<div id="resultado"></div>
 		<br>

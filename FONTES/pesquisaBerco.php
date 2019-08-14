@@ -50,6 +50,7 @@ include('seguranca.php');
 			<br>
 			<br>
 		</div>
+		<button type="button" class="btn btn-primary btn-sm" onclick="buscarNoticias(this.value)">Listar Todos</button>
 		<div id="conteudo"></div>
 		<div id="resultado"></div>
 		<br>

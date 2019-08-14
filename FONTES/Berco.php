@@ -53,9 +53,6 @@ session_start();
 			
 				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Idade</b>:<br></font>
 				<input class="form-control"  type="number" id="idade"  name="idade"></div>
-							
-			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Quantidade sensores</b>:<br></font>
-				<input size="28" type="text" class="form-control"name="qtdsensores" ></div>
 
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Usuário<br></b></font><select style="width: 200px;" name="usuario">
 					<?php					
@@ -77,7 +74,7 @@ session_start();
 					?>
 				</select>
 				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Componentes<br></b></font><select style="width: 200px;" name="componentes">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Componentes<br></b></font><select multiple="multiple" style="width: 200px;" name="componentes[]">
 					<?php					
 						$result_usuarios = mysql_query("SELECT * FROM cadastrocomponentes");
 						while($row_result_usuarios = mysql_fetch_assoc($result_usuarios)) { ?>

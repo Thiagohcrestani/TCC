@@ -46,15 +46,15 @@ session_start();
 	
 	
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Nome</b>:<br></font>
-				<input type="text" name="nome" class="form-control"></div>
+				<input type="text" name="nome" class="form-control" required></div>
 			
 				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Cpf</b>:<br></font>
-				<input class="form-control"  type="number" id="cpf"  name="cpf" onchange="verificaCpf(); ValidaCPF();"></div>
+				<input class="form-control"  type="number" id="cpf"  name="cpf" onchange="verificaCpf(); ValidaCPF();" required></div>
 							
-			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Login</b>:<br></font>
-				<input size="28" type="text" class="form-control"name="login" ></div>
-			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Senha</b>:<br></font>
-				<input size="28" type="password" class="form-control" name="senha" ></div>
+			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white" ><b>Login</b>:<br></font>
+				<input size="28" type="text" class="form-control"name="login" required></div>
+			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white" required><b>Senha</b>:<br></font>
+				<input size="28" type="password" class="form-control" name="senha" required></div>
 				
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Tipo de Usuário:<br></b></font><select style="width: 150px;" name="tipousuario">
 					<option value="A">Administrador</option>
@@ -147,8 +147,13 @@ border-radius: 20px;
 			if (r == true) {
 	
 		   } else {
+				 
 				$("#cpf").val("");
+				$("#cpf").focus();
+				return false;
+				
 			}
+			
 		}
 		
 		

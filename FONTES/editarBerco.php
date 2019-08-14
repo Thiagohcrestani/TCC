@@ -10,10 +10,21 @@ $id = $_POST['id'];
 $sql = "Select * from cadastroberco where id_berco = $id";
 $result	 = mysql_query($sql);
 
-$id_usuario = mysql_result($result, 0, 'id_usuario');
-$id_sensores = mysql_result($result, 0, 'id_sensor');
-$id_componentes = mysql_result($result, 0, 'id_componente');
+$sensores=[];
+$rs = mysql_query("SELECT * FROM bercosensor where berco=$id");
+while($row_result_sensores = mysql_fetch_assoc($rs)){
+	$sensores[]=$row_result_sensores['sensor'];
 
+}
+
+$componente=[];
+$rc = mysql_query("SELECT * FROM bercocomponente where berco=$id");
+while($row_result_componentes = mysql_fetch_assoc($rc)){
+	$componente[]=$row_result_componentes['componente'];
+
+}
+
+$id_usuario = mysql_result($result, 0, 'id_usuario');
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -41,9 +52,6 @@ $id_componentes = mysql_result($result, 0, 'id_componente');
 			
 				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Idade</b>:<br></font>
 				<input class="form-control"  type="number" id="idade"  name="idade" value="<?php echo mysql_result($result,0,'idade_crianca')?>"></div>
-							
-			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Quantidade sensores</b>:<br></font>
-				<input size="28" type="text" class="form-control"name="qtdsensores" value="<?php echo mysql_result($result,0,'quantidadesensores')?>"></div>
 
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Usuário<br></b></font><select style="width: 200px;" name="usuario">
 					<?php					
@@ -55,21 +63,21 @@ $id_componentes = mysql_result($result, 0, 'id_componente');
 					?>
 				</select>
 				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Sensores<br></b></font><select style="width: 200px;" name="sensor" multiple="multiple">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Sensores<br></b></font><select multiple="multiple" style="width: 200px;" name="sensores[]">
 					<?php					
 						$result_sensores = mysql_query("SELECT * FROM cadastrosensores");
 						while($row_result_sensores = mysql_fetch_assoc($result_sensores)) { ?>
-							<option value="<?php echo $row_result_sensores['id_sensor']; ?>" <?php if($id_sensores==$row_result_sensores['id_sensor']){echo "selected";}?>><?php echo $row_result_sensores['nome_sensor'];?></option>
+					<option value="<?php echo $row_result_sensores['id_sensor']; ?>" <?php if (in_array($row_result_sensores['id_sensor'], $sensores)){echo 'selected="selected"';}  ?>><?php echo $row_result_sensores['nome_sensor'];?></option>
 					<?php
 						}
 					?>
 				</select>
 				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Componentes<br></b></font><select style="width: 200px;" name="componente">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Componentes<br></b></font><select style="width: 200px;" name="componente[]" multiple="multiple">
 					<?php					
 						$result_componentes = mysql_query("SELECT * FROM cadastrocomponentes");
 						while($row_result_componentes = mysql_fetch_assoc($result_componentes)) { ?>
-							<option value="<?php echo $row_result_componentes['id_componente']; ?>" <?php if($id_componentes==$row_result_componentes['id_componente']){echo "selected";}?>><?php echo $row_result_componentes['nome_componente'];?></option>
+						<option value="<?php echo $row_result_componentes['id_componente']; ?>" <?php if (in_array($row_result_componentes['id_componente'], $componente)){echo 'selected="selected"';}  ?>><?php echo $row_result_componentes['nome_componente'];?></option>
 					<?php
 						}
 					?>
