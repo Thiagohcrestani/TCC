@@ -49,43 +49,31 @@ session_start();
 	
 	
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Nome Criança</b>:<br></font>
-				<input type="text" name="nome" class="form-control"></div>
-			
-				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Idade</b>:<br></font>
-				<input class="form-control"  type="number" id="idade"  name="idade"></div>
+				<input type="text" name="nome" class="form-control" required></div>
+		
 
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Usuário<br></b></font><select style="width: 200px;" name="usuario">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Usuário<br></b></font><select required style="width: 200px;" multiple="multiple" name="usuario[]">
 					<?php					
-						$result_usuarios = mysql_query("SELECT * FROM cadastrousuario");
+						$result_usuarios = mysql_query("SELECT * FROM cadastrousuario order by nome_usuario");
 						while($row_result_usuarios = mysql_fetch_assoc($result_usuarios)) { ?>
-					<option value="<?php echo $row_result_usuarios['id_usuario']; ?>"><?php echo $row_result_usuarios['nome_usuario'];?></option>
+					<option  value="<?php echo $row_result_usuarios['id_usuario']; ?>"><?php echo $row_result_usuarios['nome_usuario'];?></option>
 					<?php
 						}
 					?>
 				</select>
 				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Sensores<br></b></font><select multiple="multiple" style="width: 200px;" name="sensores[]">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Sensores<br></b></font><select required multiple="multiple" style="width: 200px;" name="sensores[]">
 					<?php					
-						$result_usuarios = mysql_query("SELECT * FROM cadastrosensores");
+						$result_usuarios = mysql_query("SELECT * FROM cadastrosensores order by nome_sensor");
 						while($row_result_usuarios = mysql_fetch_assoc($result_usuarios)) { ?>
-					<option value="<?php echo $row_result_usuarios['id_sensor']; ?>"><?php echo $row_result_usuarios['nome_sensor'];?></option>
-					<?php
-						}
-					?>
-				</select>
-				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Componentes<br></b></font><select multiple="multiple" style="width: 200px;" name="componentes[]">
-					<?php					
-						$result_usuarios = mysql_query("SELECT * FROM cadastrocomponentes");
-						while($row_result_usuarios = mysql_fetch_assoc($result_usuarios)) { ?>
-					<option value="<?php echo $row_result_usuarios['id_componente']; ?>"><?php echo $row_result_usuarios['nome_componente'];?></option>
+					<option required value="<?php echo $row_result_usuarios['id_sensor']; ?>"><?php echo $row_result_usuarios['nome_sensor'];?></option>
 					<?php
 						}
 					?>
 				</select>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Status<br></b></font>
-				<select style="width: 150px;" name="status">
+				<select style="width: 150px;" name="status" >
 					<option value="A">Ativo</option>
 					<option value="I">Inativo</option>
 				</select>

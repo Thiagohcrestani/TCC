@@ -49,7 +49,7 @@ session_start();
 				<input type="text" name="nome" class="form-control" required></div>
 			
 				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Cpf</b>:<br></font>
-				<input class="form-control"  type="number" id="cpf"  name="cpf" onchange="verificaCpf(); ValidaCPF();" required></div>
+				<input class="form-control"  type="number" id="cpf"  name="cpf" onchange="verificaCpf(); ValidaCPF(); " required></div>
 							
 			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white" ><b>Login</b>:<br></font>
 				<input size="28" type="text" class="form-control"name="login" required></div>
@@ -161,6 +161,17 @@ border-radius: 20px;
 	})
 
 	}
+	function Mask($mask,$str){
+
+    $str = str_replace(" ","",$str);
+
+    for($i=0;$i<strlen($str);$i++){
+        $mask[strpos($mask,"#")] = $str[$i];
+    }
+
+    return $mask;
+
+}
 	</script>
 
 	

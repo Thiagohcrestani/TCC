@@ -10,8 +10,11 @@ session_start();
 	$conexao = mysql_pconnect($host,$user,$pass);
 	mysql_select_db($base,$conexao);
 
-	//$id = $_POST['id'];
-	//$sql = "Select * from cadastroberco where id_berco = $id";
+	$id = $_POST['id'];
+	$sql = "Select * from armazenamentodados";
+	$result	 = mysql_query($sql);
+
+
 	
 	//$result	 = mysql_query($sql);
 
@@ -57,11 +60,14 @@ session_start();
 			    <div bgcolor="" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  ><font color="white"><center><b>Verificar Iformações</b></center></font></div>
 	
 	
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Berço<br></b></font><select style="width: 200px;" name="usuario" id="usuario">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Berço<br></b></font><select 	 style="width: 200px;" name="berco" id="berco">
+					<option disabled selected>Selecione Um berço</option>
 					<?php					
-						$result_usuarios = mysql_query("SELECT * FROM cadastroberco where id_usuario = ".$_SESSION['baby_id']);	
+						$result_usuarios = mysql_query("SELECT b.*, c.nome_crianca FROM bercousuario b, cadastroberco c where berco = id_berco and usuario =  ".$_SESSION['baby_id']);	
 						while($row_result_usuarios = mysql_fetch_assoc($result_usuarios)) { ?>
-					<option value="<?php echo $row_result_usuarios['id_berco']; ?>"><?php echo $row_result_usuarios['nome_crianca'];?></option>
+						
+					
+					<option value="<?php echo $row_result_usuarios['berco']; ?>"><?php echo $row_result_usuarios['nome_crianca'];?></option>
 					<?php
 						}
 					?>
@@ -70,34 +76,25 @@ session_start();
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Sensor<br></b></font><select style="width: 200px;" name="sensor" id="sensor">
 					<?php					
-						$result_sensores = mysql_query("SELECT * FROM cadastrosensores");
-						while($row_result_sensores = mysql_fetch_assoc($result_sensores)) { ?>
-					<option value="<?php echo $row_result_sensores['id_sensor']; ?>"><?php echo $row_result_sensores['nome_sensor'];?></option>
+						//$result_sensores = mysql_query("select b.*, c.nome_sensor from bercosensor b, cadastrosensores c where b.sensor = c.id_sensor and berco = 1 ;");
+						//while($row_result_sensores = mysql_fetch_assoc($result_sensores)) { ?>
+					<!--<option value="<?php echo $row_result_sensores['id_sensor']; ?>"><?php echo $row_result_sensores['nome_sensor'];?></option>-->
 					<?php
-						}
+						//}
 					?>
 				
 				</select>
 				</div>
-				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Tipo Evento</b>:<br></font>
-					<?php					
-						$result_arm = mysql_query("SELECT * FROM armazenamentodados");
-						while($row_result_arm = mysql_fetch_assoc($result_arm)) { ?>
-				<input class="form-control"  type="Text" id="idade"  name="tipoevento" value="<?php echo $row_result_arm['tipo_evento'];?>"><?php echo $row_result_arm['tipo_evento'];?></input>
-				<?php
-						}
-					?>
+				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Tipo Evento</b>:<br></font>  
+					<input type="text" name="tipoevento" class="form-control"></input>
+					
 				</div>
-				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Observações</b>:<br></font>
-					<?php					
-						$result_arm = mysql_query("SELECT * FROM armazenamentodados");
-						while($row_result_arm = mysql_fetch_assoc($result_arm)) { ?>
-				<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value="<?php echo $row_result_arm['observacao_evento'];?>">
-				<?php echo $row_result_arm['observacao_evento'];?>
-				<?php echo $row_result_arm['data_hora_evento'];?></textarea>
-				<?php
-						}
-					?>
+
+				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Data e Hora do evento</b>:<br></font>
+				<input type="text" name="dataevento" class="form-control" ></input>
+				</div>
+				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Observações Evento</b>:<br></font>
+				<input type="text" name="observacao" class="form-control" ></input>
 				</div>
 			<br>
 			<br>
@@ -135,12 +132,39 @@ border-radius: 20px;
  
  function buscarNoticias(valor) {
 	$.ajax({
-		type: "GET",
+		type: "POST",
 		url: "buscaInformacoes.php",
 		data: {valor: valor}
 
 	}).done(function (data){
-		$("#resultado").html(data);
+		console.log(data);
+		$("#sensor").html(data);
 		
 	})
+ }
+
+	$("#berco").on("change",function(){
+		var id = $(this).val();
+		buscarNoticias(id)
+	})
+
+	function get(valor) {
+		$.ajax({
+		type: "POST",
+		url: "buscainformacoes2.php",
+		data: {valor: valor}
+
+		}).done(function(data){
+			var data = JSON.parse(data);
+		  $("input[name=tipoevento]").attr("value", data["tipo_evento"]);
+		  $("input[name=dataevento]").attr("value", data["data_hora_evento"]);
+		  $("input[name=observacao]").attr("value", data["observacao_evento"]);
+		});
+	}
+
+	$("#sensor").on("change",function(){
+		var id = $(this).val();
+		get(id);
+	});
+
 </script>

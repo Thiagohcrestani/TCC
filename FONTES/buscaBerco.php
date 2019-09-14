@@ -26,5 +26,5 @@ while ($dados = mysql_fetch_object($sql)) {
 //echo "</table>";
 echo"</div>"; 
 // Acentuação
-header("Content-Type: text/html; charset=ISO-8859-1",true);
+//header("Content-Type: text/html; charset=ISO-8859-1",true);
 ?>

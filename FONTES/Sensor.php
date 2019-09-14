@@ -46,20 +46,20 @@ session_start();
 	
 	
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Nome Sensor</b>:<br></font>
-				<input type="text" name="nome" class="form-control"></div>
+				<input type="text" name="nome" class="form-control" required></div>
 				
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Localização Sensor:<br></b></font><select style="width: 150px;" name="localizacaosensor">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Localização Sensor:<br></b></font><select required style="width: 150px;" name="localizacaosensor">
 					<option value="E">Parte Externa</option>
 					<option value="I">Parte Interna</option>
 				</select>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Tipo de Sensor:<br></b></font><select style="width: 150px;" name="tiposensor">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Tipo de Sensor:<br></b></font><select required style="width: 150px;" name="tiposensor">
 					<option value="T">Temperatura</option>
 					<option value="M">Movimento</option>
 					<option value="B">Batimento</option>
 				</select>
 				</div>
 				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Status:<br></b></font><select style="width: 150px;" name="status">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Status:<br></b></font><select required style="width: 150px;" name="status">
 					<option value="A">Ativo</option>
 					<option value="I">Inativo</option>
 				</select>

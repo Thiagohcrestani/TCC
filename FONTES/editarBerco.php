@@ -24,7 +24,12 @@ while($row_result_componentes = mysql_fetch_assoc($rc)){
 
 }
 
-$id_usuario = mysql_result($result, 0, 'id_usuario');
+$usuario=[];
+$ru = mysql_query("SELECT * FROM bercousuario where berco=$id");
+while($row_result_usuarios = mysql_fetch_assoc($ru)){
+	$usuario[]=$row_result_usuarios['usuario'];
+
+}
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -49,35 +54,22 @@ $id_usuario = mysql_result($result, 0, 'id_usuario');
 	
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Nome Criança</b>:<br></font>
 				<input type="text" name="nome" class="form-control" value="<?php echo mysql_result($result,0,'nome_crianca')?>"></div>
-			
-				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Idade</b>:<br></font>
-				<input class="form-control"  type="number" id="idade"  name="idade" value="<?php echo mysql_result($result,0,'idade_crianca')?>"></div>
 
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Usuário<br></b></font><select style="width: 200px;" name="usuario">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Usuário<br></b></font><select required style="width: 200px;" name="usuario[]" multiple="multiple">
 					<?php					
-						$result_usuarios = mysql_query("SELECT * FROM cadastrousuario");
+						$result_usuarios = mysql_query("SELECT * FROM cadastrousuario order by nome_usuario");
 						while($row_result_usuarios = mysql_fetch_assoc($result_usuarios)) { ?>
-							<option value="<?php echo $row_result_usuarios['id_usuario']; ?>" <?php if($id_usuario==$row_result_usuarios['id_usuario']){echo "selected";}?>><?php echo $row_result_usuarios['nome_usuario'];?></option>
+							<option value="<?php echo $row_result_usuarios['id_usuario']; ?>" <?php if (in_array($row_result_usuarios['id_usuario'], $usuario)){echo 'selected="selected"';}?>><?php echo $row_result_usuarios['nome_usuario'];?></option>
 						<?php
 						}
 					?>
 				</select>
 				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Sensores<br></b></font><select multiple="multiple" style="width: 200px;" name="sensores[]">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Sensores<br></b></font><select required multiple="multiple" style="width: 200px;" name="sensores[]">
 					<?php					
-						$result_sensores = mysql_query("SELECT * FROM cadastrosensores");
+						$result_sensores = mysql_query("SELECT * FROM cadastrosensores order by nome_sensor");
 						while($row_result_sensores = mysql_fetch_assoc($result_sensores)) { ?>
 					<option value="<?php echo $row_result_sensores['id_sensor']; ?>" <?php if (in_array($row_result_sensores['id_sensor'], $sensores)){echo 'selected="selected"';}  ?>><?php echo $row_result_sensores['nome_sensor'];?></option>
-					<?php
-						}
-					?>
-				</select>
-				</div>
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Componentes<br></b></font><select style="width: 200px;" name="componente[]" multiple="multiple">
-					<?php					
-						$result_componentes = mysql_query("SELECT * FROM cadastrocomponentes");
-						while($row_result_componentes = mysql_fetch_assoc($result_componentes)) { ?>
-						<option value="<?php echo $row_result_componentes['id_componente']; ?>" <?php if (in_array($row_result_componentes['id_componente'], $componente)){echo 'selected="selected"';}  ?>><?php echo $row_result_componentes['nome_componente'];?></option>
 					<?php
 						}
 					?>
