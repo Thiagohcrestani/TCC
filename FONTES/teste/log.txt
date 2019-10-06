@@ -1,0 +1,11 @@
+Array
+(
+    [0] => Resource id #7
+    [1] => Array
+        (
+            [temp] => -47.07
+            [mov] => 3480
+        )
+
+)
+insert into ... (-47.07)

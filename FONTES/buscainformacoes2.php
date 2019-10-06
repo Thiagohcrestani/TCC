@@ -1,5 +1,5 @@
-<?php
-// Incluir aquivo de conexão
+ï»¿<?php
+// Incluir aquivo de conexÃ£o
 include("include/config.dba.php");
 
 $conexao = mysql_pconnect($host,$user,$pass);
@@ -22,6 +22,6 @@ while ($dados = mysql_fetch_object($sql)) {
 }
 //echo "</table>";
 //echo"</div>"; 
-// Acentuação
+// AcentuaÃ§Ã£o
 //header("Content-Type: text/html; charset=ISO-8859-1",true);
 ?>

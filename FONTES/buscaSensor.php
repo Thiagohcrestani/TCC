@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 // Incluir aquivo de conexão
 include("include/config.dba.php");
 

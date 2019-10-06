@@ -17,12 +17,9 @@ while($row_result_sensores = mysql_fetch_assoc($rs)){
 
 }
 
-$componente=[];
-$rc = mysql_query("SELECT * FROM bercocomponente where berco=$id");
-while($row_result_componentes = mysql_fetch_assoc($rc)){
-	$componente[]=$row_result_componentes['componente'];
 
-}
+
+
 
 $usuario=[];
 $ru = mysql_query("SELECT * FROM bercousuario where berco=$id");
