@@ -10,12 +10,13 @@ class ComposerStaticInitb422d9399a44283d13df768b138cb8c5
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '023d27dca8066ef29e6739335ea73bad' => __DIR__ . '/..' . '/symfony/polyfill-php70/bootstrap.php',
+        '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        't' => 
+        's' => 
         array (
-            'tcc\\' => 4,
+            'setasign\\Fpdi\\' => 14,
         ),
         'S' => 
         array (
@@ -27,12 +28,24 @@ class ComposerStaticInitb422d9399a44283d13df768b138cb8c5
             'Symfony\\Component\\Filesystem\\' => 29,
             'Symfony\\Component\\Config\\' => 25,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
+        'M' => 
+        array (
+            'Mpdf\\' => 5,
+        ),
+        'D' => 
+        array (
+            'DeepCopy\\' => 9,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'tcc\\' => 
+        'setasign\\Fpdi\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/tcc/FONTES',
+            0 => __DIR__ . '/..' . '/setasign/fpdi/src',
         ),
         'Symfony\\Polyfill\\Php70\\' => 
         array (
@@ -62,6 +75,22 @@ class ComposerStaticInitb422d9399a44283d13df768b138cb8c5
         array (
             0 => __DIR__ . '/..' . '/symfony/config',
         ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Mpdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mpdf/mpdf/src',
+        ),
+        'DeepCopy\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+    );
+
+    public static $fallbackDirsPsr0 = array (
+        0 => __DIR__ . '/../..' . '/',
     );
 
     public static $classMap = array (
@@ -79,6 +108,7 @@ class ComposerStaticInitb422d9399a44283d13df768b138cb8c5
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitb422d9399a44283d13df768b138cb8c5::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitb422d9399a44283d13df768b138cb8c5::$prefixDirsPsr4;
+            $loader->fallbackDirsPsr0 = ComposerStaticInitb422d9399a44283d13df768b138cb8c5::$fallbackDirsPsr0;
             $loader->classMap = ComposerStaticInitb422d9399a44283d13df768b138cb8c5::$classMap;
 
         }, null, ClassLoader::class);

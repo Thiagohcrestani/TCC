@@ -3,9 +3,11 @@ Array
     [0] => Resource id #7
     [1] => Array
         (
-            [temp] => -47.07
-            [mov] => 3480
+            [temp] => 3.42
+            [mov] => 2896
+            [corp] => 1037.5
+            [bat] => 0
         )
 
 )
-insert into ... (-47.07)
+insert into ... (3.42)

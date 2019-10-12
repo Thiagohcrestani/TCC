@@ -115,7 +115,7 @@ border-radius: 10px;
 		data: {id: id}
 
 	}).done(function (data){
-		
+		console.log(data);
 		buscarNoticias($("#busca").val());
 	})
 

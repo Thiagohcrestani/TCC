@@ -5,9 +5,17 @@
 	mysql_select_db($base,$conexao);
 
     $id =  $_POST['id'];
-	
+
+	try{
 	$sql = "delete from cadastrousuario where id_usuario = $id";
-	echo $result_sql = mysql_query($sql,$conexao);
+	$result_sql = mysql_query($sql,$conexao);
+	echo "ok";
+	} catch(Exception $e) {
+		echo $e->getMessage();
+
+	}
+	
+	
 
 	//header("location: index_menu.html");
 ?>

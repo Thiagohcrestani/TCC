@@ -11,6 +11,7 @@ function criaSessao($login,$senha,$conexao){
 	$_SESSION["baby_usuario"]=mysql_result($result_sql,0,"nome_usuario");
 	$_SESSION["baby_senha"]=mysql_result($result_sql,0,"senha_usuario");
 	$_SESSION["baby_tipo"]=mysql_result($result_sql,0,"tipousuario");
+	$_SESSION["baby_status"]=mysql_result($result_sql,0,"status");
 	
 
 
@@ -39,8 +40,6 @@ function verificaSessao(){
 	}else{
 		return false;
 	}
-
-
-}
+}	
 
 ?>

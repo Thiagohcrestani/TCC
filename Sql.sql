@@ -1,7 +1,12 @@
-select * from armazenamentodados;
+bercousuarioselect * from armazenamentodados;
+
+select * from gerarelatorio;
+
+select * from cidade
+;
 
 	
-
+select * from cadastrousuario;
 select * from cadastrosensores
 ;
 
@@ -11,7 +16,7 @@ insert into cidade (nome) values ('Palotina');
 
 select * from cidade;
 
-insert into armazenamentodados (id_berco, id_sensor, data_hora_evento, tipo_evento, observacao_evento) values ("1", "4", now(), "", "");
+insert into armazenamentodados (id_berco, id_sensor, data_hora_evento, tipo_evento, observacao_evento) values ("1", "5", now(), "", "");
 
 delete from armazenamentodados where id_sensor = 2;
 

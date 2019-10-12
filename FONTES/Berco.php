@@ -14,7 +14,7 @@ session_start();
 <html>
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title> MENU </title>
+  <title> Novo Berço </title>
   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
   <!--<link href="style.css" rel="stylesheet" type="text/css" />
   <!-- Optional JavaScript -->
@@ -106,7 +106,14 @@ border-radius: 20px;
 .imagem {
   background-image: url(../IMAGEM/Fundo.jpg);
   background-size: cover;
-}
+}    .load {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 30%;
+    left: 45%;
+    color: blue;
+ }
  </style>
  <script>
 	function ValidaCPF(){

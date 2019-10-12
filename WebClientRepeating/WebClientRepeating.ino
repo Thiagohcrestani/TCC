@@ -1,4 +1,4 @@
-/*
+  /*
   Repeating Web client
 
  This sketch connects to a a web server and makes a request
@@ -22,16 +22,33 @@
 
  */
 
+ /*
+ Incluindo as bibliotecas dos sensores*/
+char valortempcorp[10];
+float tempCorp = 0;
+int bat = 0;
+#define USE_ARDUINO_INTERRUPTS true    // Set-up low-level interrupts for most acurate BPM math.  
 #include <SPI.h>
 #include <Ethernet.h>
 #include<Wire.h>
+#include <Adafruit_MLX90614.h>
+#include <PulseSensorPlayground.h>     // Includes the PulseSensorPlayground Library.
+
+Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 
 //Endereco I2C do MPU6050
 const int MPU=0x68;  
 
+
+PulseSensorPlayground pulseSensor;  // Creates an instance of the PulseSensorPlayground object called "pulseSensor"
+const int PulseWire = 0;       // PulseSensor PURPLE WIRE connected to ANALOG PIN 0
+const int LED13 = 13;          // The on-board Arduino LED, close to PIN 13.
+int Threshold = 550;           // Determine which Signal to "count as a beat" and which to ignore.
+
 //Variaveis para armazenar valores dos sensores
 int AcX,AcY,AcZ,Tmp,GyX,GyY,GyZ;
-
+ /*
+ Configuração da Ehternet Shield.*/
 // assign a MAC address for the ethernet controller.
 // fill in your address here:
 byte mac[] = {
@@ -50,7 +67,23 @@ char server[] = "192.168.0.180";  // also change the Host line in httpRequest()
 unsigned long lastConnectionTime = 0;           // last time you connected to the server, in milliseconds
 const unsigned long postingInterval = 10*1000;  // delay between updates, in milliseconds
 
+
+ /*
+ Inicioalização das bibliotecas dos sensores.*/
 void setup() {
+  
+  Serial.begin(9600);          // For Serial Monitor
+
+  // Configure the PulseSensor object, by assigning our variables to it. 
+  pulseSensor.analogInput(PulseWire);   
+  pulseSensor.blinkOnPulse(LED13);       //auto-magically blink Arduino's LED with heartbeat.
+  pulseSensor.setThreshold(Threshold);   
+
+  // Double-check the "pulseSensor" object was created and "began" seeing a signal. 
+   if (pulseSensor.begin()) {
+    Serial.println("We created a pulseSensor Object !");  //This prints one time at Arduino power-up,  or on Arduino reset.  
+  }
+   mlx.begin();  
   // You can use Ethernet.init(pin) to configure the CS pin
   //Ethernet.init(10);  // Most Arduino shields
   //Ethernet.init(5);   // MKR ETH shield
@@ -72,6 +105,9 @@ void setup() {
     ; // wait for serial port to connect. Needed for native USB port only
   }
 
+
+   /*
+ Inicializa a Ethernet Shield*/
   // start the Ethernet connection:
   Serial.println("Initialize Ethernet with DHCP:");
   if (Ethernet.begin(mac) == 0) {
@@ -98,7 +134,20 @@ void setup() {
   delay(1000);
 }
 
+
+ /*
+ Busca as Informações dos sensores*/
 void loop() {
+  int myBPM = pulseSensor.getBeatsPerMinute();
+  
+  if (pulseSensor.sawStartOfBeat()) {            // Constantly test to see if "a beat happened". 
+  // Serial.println("♥  A HeartBeat Happened ! "); // If test is "true", print a message "a heartbeat happened".
+//Serial.print("BPM: ");                        // Print phrase "BPM: " 
+ Serial.println(myBPM);                        // Print the value inside of myBPM. 
+  }
+  bat = myBPM;
+  tempCorp = mlx.readAmbientTempC();
+  dtostrf(tempCorp, 3, 1, valortempcorp);
   Wire.beginTransmission(MPU);
   Wire.write(0x3B);  // starting with register 0x3B (ACCEL_XOUT_H)
   Wire.endTransmission(false);
@@ -117,6 +166,7 @@ void loop() {
     Serial.write(c);
    
   }
+  
 
   // if ten seconds have passed since your last connection,
   // then connect again and send data:
@@ -127,6 +177,8 @@ void loop() {
 }
 
 // this method makes a HTTP connection to the server:
+ /*
+ Conecta no servidor e envia a requisição para o arquivo de inclusão no banco de dados.*/
 void httpRequest() {
   // close any connection before send a new request.
   // This will free the socket on the WiFi shield
@@ -136,7 +188,7 @@ void httpRequest() {
   if (client.connect(server, 80)) {
     Serial.println("connecting...");
     // send the HTTP GET request:
-    client.println("GET /tcc/FONTES/teste/index.php?temp="+String(getTemp())+"&mov="+String(AcZ)+" HTTP/1.1");
+    client.println("GET /tcc/FONTES/teste/index.php?temp="+String(getTemp())+"&mov="+String(AcZ)+"&corp="+String(valortempcorp)+"&bat="+String(bat)+" HTTP/1.1");
     client.println("Host: 192.168.0.180");
     client.println("User-Agent: arduino-ethernet");
     client.println("Connection: close");
@@ -150,12 +202,9 @@ void httpRequest() {
   }
 }
 
+ /*
+ Retorna o valor do sensor de temperatura*/
  float getTemp(){    
-    return ((float(analogRead(A0))*5/1024)-0.5)*100;
+    return ((float(analogRead(A0))*5/1023))*100;
+    //Serial.println(analogRead(A0));
   }
-float getBat(){
-  return 88.8F;
-}
-int getAlgo(){
-  return 1000;
-}

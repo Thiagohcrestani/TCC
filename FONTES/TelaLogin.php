@@ -64,9 +64,6 @@
 	    </div>
              <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 	      <br>
-		<div class="forgot">
-             <a href="RecuperaSenha.php">Esqueceu a Senha?</a>
-        </div>
 
     </form>	
 </div>

@@ -3,6 +3,7 @@
 session_start();
 
 	include('seguranca.php');
+
 	if (!verificaSessao()) {
 		header("location: TelaLogin.php");
 }
