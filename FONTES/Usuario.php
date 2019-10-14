@@ -56,13 +56,15 @@ session_start();
 			    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white" required><b>Senha</b>:<br></font>
 				<input size="28" type="password" class="form-control" name="senha" required></div>
 				
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Tipo de Usuário:<br></b></font><select style="width: 150px;" name="tipousuario">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Tipo de Usuário:<br></b></font><select style="width: 200px;" name="tipousuario" required>
+					<option disabled selected>Tipo de acesso do Usuário</option>
 					<option value="A">Administrador</option>
 					<option value="C">Comum</option>
 				</select>
 				</div>
 				
-				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Status:<br></b></font><select style="width: 150px;" name="status">
+				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Status:<br></b></font><select style="width: 200px;" name="status" required>
+					<option disabled selected>Status do Usuário</option>
 					<option value="A">Ativo</option>
 					<option value="I">Inativo</option>
 				</select>

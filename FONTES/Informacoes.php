@@ -1,25 +1,21 @@
 ﻿<?php
-session_start();
+session_start();// INICIA SESSÃO DO USUÁRIO
 
-	include('seguranca.php');
+	include('seguranca.php');  //INCLUI O ARQUIVO DE SEGURANÇA, QUE VERIFICA A SESSÃO INICIADA
 	if (!verificaSessao()) {
 		header("location: TelaLogin.php");
 	}
-	include('include/config.dba.php');
+	include('include/config.dba.php');// INCLUI O ARQUIVO DE CONEXÃO COM O BANCO DE DADOS
 
-	$conexao = mysql_pconnect($host,$user,$pass);
+	$conexao = mysql_pconnect($host,$user,$pass);// INICIA A CONEXÃO COM O BANCO DE DADOS
 	mysql_select_db($base,$conexao);
 
 	$id = $_POST['id'];
-	$sql = "Select * from armazenamentodados";
+	$sql = "Select * from armazenamentodados";// SELECIONA TODOS OS DADOS DA TABELA ARMAZENAMENTO DADOS
 	$result	 = mysql_query($sql);
 
 
 	
-	//$result	 = mysql_query($sql);
-
-	//echo $sql2 = mysql_query("SELECT id_sensor FROM bercosensor WHERE sensor LIKE '".$valor."%' order by sensor");
-	//die();
 	
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -28,10 +24,7 @@ session_start();
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title> MENU </title>
   <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
-  <!--<link href="style.css" rel="stylesheet" type="text/css" />
-  <!-- Optional JavaScript -->
-			<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-			<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->	
+  <!-- CSS UTILIZADOS PELO BOOTSTRAP PARA O LAYOUT DO SISTEMA-->
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 	        <!--<link href="style.css" rel="stylesheet" type="text/css" />
@@ -49,7 +42,7 @@ session_start();
 
  <body class="imagem">
    <?php
-	include("include/menu.php");
+	include("include/menu.php");//INCLUI O MENU NO SISTEMA
   ?>
    <center>
    <div class="row">
@@ -57,16 +50,17 @@ session_start();
     <form class="painel col-lg-6 col-xs-10" name="pagina" method="post" action="ValidaSensor.php" >
 		<div class="row form-group" style="margin-left:2px; margin-right:2px;" >
 
-			    <div bgcolor="" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  ><font color="white"><center><b>Verificar Iformações</b></center></font></div>
+			    <div bgcolor="" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  ><font color="white"><center><b>Verificar Informações</b></center></font></div>
 	
 	
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Berço<br></b></font><select 	 style="width: 200px;" name="berco" id="berco">
 					<option disabled selected>Selecione Um berço</option>
-					<?php					
-						$result_usuarios = mysql_query("SELECT b.*, c.nome_crianca FROM bercousuario b, cadastroberco c where berco = id_berco and usuario =  ".$_SESSION['baby_id']);	
+					<?php		
+						// SELECIONA OS BERÇOS VINCULADOS AO USUÁRIO LOGADO E RETORNA PARA O COMBOBOX	
+						$result_usuarios = mysql_query("SELECT b.*, c.nome_crianca FROM bercousuario b, cadastroberco c where berco = id_berco and usuario =  ".$_SESSION['baby_id']);
 						while($row_result_usuarios = mysql_fetch_assoc($result_usuarios)) { ?>
 						
-					
+					<!-- RETORNA OS VALORES PARA O COMBOBOX-->
 					<option value="<?php echo $row_result_usuarios['berco']; ?>"><?php echo $row_result_usuarios['nome_crianca'];?></option>
 					<?php
 						}
@@ -75,14 +69,7 @@ session_start();
 				</select>
 				</div>
 				<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"><font color="white"><b>Sensor<br></b></font><select style="width: 200px;" name="sensor" id="sensor">
-					<?php					
-						//$result_sensores = mysql_query("select b.*, c.nome_sensor from bercosensor b, cadastrosensores c where b.sensor = c.id_sensor and berco = 1 ;");
-						//while($row_result_sensores = mysql_fetch_assoc($result_sensores)) { ?>
-					<!--<option value="<?php echo $row_result_sensores['id_sensor']; ?>"><?php echo $row_result_sensores['nome_sensor'];?></option>-->
-					<?php
-						//}
-					?>
-				
+				<!--RECEBE OS SENSORES QUE ESTÃO VINCULADOS AO BERÇO SELECIONADO-->	
 				</select>
 				</div>
 				<div  class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ><font color="white"><b>Tipo Evento</b>:<br></font>  
@@ -101,12 +88,8 @@ session_start();
 			<br>
 			<br>
 			<br>
-			<br>
-				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" bgcolor=""><input class="btn btn-primary btn-lg" type="submit" name="salvar" value="Salvar" ></input></div>	
-				<br>
-				<br>
-				<br>
-					<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" bgcolor=""><input type="button" onclick="window.location.href='index_menu.php'" class="btn btn-danger btn-lg" name="cancelar" value="Cancelar" ></input></div>		
+					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" bgcolor=""><input type="button" onclick="window.location.href='index_menu.php'" 
+					class="btn btn-success btn-lg" name="cancelar" value="Retornar ao menu Principal" ></input></div>		
 			<br>
 			<br>
 			<br>
@@ -118,51 +101,51 @@ session_start();
  <style>
  .painel{
 
-background: linear-gradient(to bottom, rgba(101, 102, 103 ,1.0) 0%,rgba(44,80,107,0.6) 100%);
+background: linear-gradient(to bottom, rgba(101, 102, 103 ,1.0) 0%,rgba(44,80,107,0.6) 100%);/*DETERMINA AS BORDAS E AS CORES DO FORMULARIO*/
 border-radius: 20px;
 
 
 }
 .imagem {
-  background-image: url(../IMAGEM/Fundo.jpg);
+  background-image: url(../IMAGEM/Fundo.jpg);/*DETERMINA A IMAGEM DE FUNDO*/
   background-size: cover;
 }
  </style>
 <script>
  
- function buscarNoticias(valor) {
+ function buscarNoticias(valor) {//FUNÇÃO PARA BUSCAR OS BERÇOS VINCULADOS AO USUÁRIO LOGADO
 	$.ajax({
 		type: "POST",
-		url: "buscaInformacoes.php",
+		url: "buscaInformacoes.php",//ARQUIVO ONDE BUSCA AS INFORMAÇÕES
 		data: {valor: valor}
 
 	}).done(function (data){
 		console.log(data);
-		$("#sensor").html(data);
+		$("#sensor").html(data);//PREENCHE O COMBOBOX DE SENSOR CONFORME O BERÇO SELECIONADO
 		
 	})
  }
 
-	$("#berco").on("change",function(){
+	$("#berco").on("change",function(){//CONFORME OUTRO BERÇO É SELECIONADO, ELE BUSCA OS SENSORES VINCULADOS AO BERÇO E RETORNA NOVAMENTE.
 		var id = $(this).val();
-		buscarNoticias(id)
+		buscarNoticias(id)//VOLTA PARA A FUNÇÃO BUSCAR NOTICIAS.
 	})
 
-	function get(valor) {
+	function get(valor) {//FUNÇÃO PARA BUSCAR OS VALORES DOS SENSORES SELECIONADOS ACIMA, PARA RETORNAR OS VALORES AOS INPUTS.
 		$.ajax({
 		type: "POST",
-		url: "buscainformacoes2.php",
+		url: "buscainformacoes2.php",//ARQUIVO ONDE FAZ O SELECT NO BANCO DE BUSCA DAS INFORMAÇÕES
 		data: {valor: valor}
 
 		}).done(function(data){
 			var data = JSON.parse(data);
-		  $("input[name=tipoevento]").attr("value", data["tipo_evento"]);
-		  $("input[name=dataevento]").attr("value", data["data_hora_evento"]);
-		  $("input[name=observacao]").attr("value", data["observacao_evento"]);
+		  $("input[name=tipoevento]").attr("value", data["tipo_evento"]);//RETORNA O TIPO DO EVENTO DO SENSOR SELECIONADO AO INPUT TIPO EVENTO
+		  $("input[name=dataevento]").attr("value", data["data_hora_evento"]);//RETORNA O DATA E HORA DO EVENTO DO SENSOR SELECIONADO AO INPUT DATA E HORA EVENTO
+		  $("input[name=observacao]").attr("value", data["observacao_evento"]);//RETORNA O TIPO DO EVENTO DO SENSOR SELECIONADO AO INPUT TIPO EVENTO
 		});
 	}
 
-	$("#sensor").on("change",function(){
+	$("#sensor").on("change",function(){//COFORME OUTRO SENSOR É SELECIONADO, ELE BUSCA NOVAMENTE E RETORNA OS VALORES AOS INPUTS.
 		var id = $(this).val();
 		get(id);
 	});

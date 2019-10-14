@@ -5,6 +5,7 @@ select * from gerarelatorio;
 select * from cidade
 ;
 
+delete from where data_hora_evento = "2019-10-09 17:12:16";
 	
 select * from cadastrousuario;
 select * from cadastrosensores

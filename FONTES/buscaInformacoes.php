@@ -13,15 +13,12 @@ $valor = $_POST['valor'];
 $sql = mysql_query("select b.*, c.id_sensor, c.nome_sensor from bercosensor b, cadastrosensores c where b.sensor = c.id_sensor and berco = ".$valor);
  
 // Exibe todos os valores encontrados
-//echo "<table border=1>";
-//echo"<div class='row'>";
+
 while ($dados = mysql_fetch_object($sql)) {
 	
 	echo "<option style='margin-top:8px' class='col-lg-8 col-md-8 col-sm-8 col-xs-6' value=" . $dados->id_sensor . "><font color=white><b>" . $dados->nome_sensor . "</b></font></option>";
 
 }
-//echo "</table>";
-//echo"</div>"; 
-// Acentuação
+
 header("Content-Type: text/html; charset=ISO-8859-1",true);
 ?>

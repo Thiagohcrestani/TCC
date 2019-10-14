@@ -20,6 +20,10 @@ $senha =  md5($_POST["senha"]);
 if(validaLogin($login,$senha,$conexao)){
 	criaSessao($login,$senha,$conexao);
 
+	?><script language="JavaScript">
+		alert("Logado com Sucesso!!");
+	</script>
+	<?php 
 	echo "\n <script language=\"JavaScript\">";
 	echo "\n <!--";
 	echo "\n 	location.href = \"index_menu.php\";";

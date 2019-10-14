@@ -44,14 +44,15 @@ session_start();
 
 			    <div bgcolor="" class="col-lg-12 col-md-12 col-sm-12 col-xs-12"  ><font color="white"><center><b>Relatório</b></center></font></div>
 	
-	
+				<div>
 				<?php
 					include("Relatorio/src/view/ViewPDO-Obj.php");
 				 ?>
-
+				
+			
 			<br>
 			<br>
-			<br>
+			</div>
 				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" bgcolor=""><input class="btn btn-primary btn-lg d-print-none" onclick="print()" type="submit" name="salvar" value="Imprimir" ></div>	
 				<br>
 				<br>
