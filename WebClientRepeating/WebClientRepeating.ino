@@ -1,3 +1,4 @@
+
  /*
  Incluindo as bibliotecas dos sensores*/
 char valortempcorp[10];
@@ -157,7 +158,7 @@ void httpRequest() {
   if (client.connect(server, 80)) {
     Serial.println("connecting...");
     // send the HTTP GET request:
-    client.println("GET /tcc/FONTES/teste/index.php?temp="+String(getTemp())+"&mov="+String(AcZ)+"&corp="+String(valortempcorp)+"&bat="+String(bat)+" HTTP/1.1");
+    client.println("GET /tcc/FONTES/ConexaoArduino/index.php?temp="+String(getTemp())+"&mov="+String(AcZ)+"&corp="+String(valortempcorp)+"&bat="+String(bat)+" HTTP/1.1");
     client.println("Host: 192.168.0.180");
     client.println("User-Agent: arduino-ethernet");
     client.println("Connection: close");
